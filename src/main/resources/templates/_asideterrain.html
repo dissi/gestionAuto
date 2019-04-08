@@ -1,0 +1,58 @@
+<!-- sidebar: style can be found in sidebar.less -->
+<section class="sidebar red">
+    <!-- sidebar menu: : style can be found in sidebar.less -->
+    <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">Menu Agent de Terrain</li>
+        <li>
+            <a th:href="@{/agentTerrain}">
+                <i class="fa fa-dashboard"></i> <span>Tableau de bord</span>
+                
+            </a>
+  
+        </li>
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-users"></i>
+                <span>Demande de Missions</span>
+                <span class="pull-right-container">
+                    <span class="label label-primary pull-right"></span>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a th:href="@{/demandeMission/nouveauDemandeMission}"><i class="fa fa-map-marker"></i> Faire une Demande</a></li>
+                <li class="treeview">
+                    <a href="#"><i class="fa fa-user-o"></i> Liste des demandes
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a th:href="@{/demandeMission/listeEnCours/{groupe}(groupe='agt')}"><i class="fa fa-user-plus"></i> En cours</a></li>
+                        <li><a th:href="@{/demandeMission/listeValider/{groupe}(groupe='agt')}"><i class="fa fa-users"></i> Validées</a></li>
+                        <li><a th:href="@{/demandeMission/listeTraiter/{groupe}(groupe='agt')}"><i class="fa fa-users"></i> Traitées</a></li>
+
+                    </ul>
+                </li>
+                
+            </ul>
+        </li>
+        
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-car"></i>
+                <span>Vehicules</span>
+                <span class="pull-right-container">
+                    <span class="label label-primary pull-right"></span>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+               <li><a th:href="@{/vehicule/listeVehicule/agt}"><i class="fa fa-l"></i> Liste des vehicules</a></li>
+                <li><a th:href="@{/demandeMission/vehiculeAffecter/agt}"><i class="fa fa-l"></i> Liste des vehicules affectés</a></li>
+
+                
+                
+            </ul>
+        </li>
+    </ul>
+</section>
+<!-- /.sidebar -->

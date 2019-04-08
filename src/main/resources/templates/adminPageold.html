@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <title th:utext="${title}"></title>
+      <!-- Icons-->
+      <link href="node_modules/@coreui/icons/css/coreui-icons.min.css" rel="stylesheet">
+      <link href="node_modules/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
+      <link href="node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+      <link href="node_modules/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+      <!-- Main styles for this application-->
+      <link href="css/style.css" rel="stylesheet">
+      <link href="vendors/pace-progress/css/pace.min.css" rel="stylesheet">
+      <!-- Global site tag (gtag.js) - Google Analytics-->
+      <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        // Shared ID
+        gtag('config', 'UA-118965717-3');
+          // Bootstrap ID
+          gtag('config', 'UA-118965717-5');
+      </script>
+   </head>
+   <body>
+      <!-- Include _menu.html -->
+      <th:block th:include="/_menu"></th:block>
+       
+      <h2>Admin Page</h2>
+      <h3>Welcome :
+         <span th:utext="${#request.userPrincipal.name}"></span>
+      </h3>
+      <b>This is protected page!</b>  
+       
+      <br/><br/>
+       
+      <div th:if="${userInfo != null}" th:utext="${userInfo}"></div>
+       
+   </body>
+    
+</html>

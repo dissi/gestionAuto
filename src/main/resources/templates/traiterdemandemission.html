@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor. 
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <base href="./">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <title th:utext="${title}"></title>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <!-- Bootstrap 3.3.7 -->       
+        <link rel="stylesheet" href="adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css" th:href="@{/adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css}" type="text/css" />
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="adminlte/bower_components/font-awesome/css/font-awesome.min.css" th:href="@{/adminlte/bower_components/font-awesome/css/font-awesome.min.css}" type="text/css" />
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="adminlte/bower_components/Ionicons/css/ionicons.min.css" th:href="@{/adminlte/bower_components/Ionicons/css/ionicons.min.css}" type="text/css" />
+        <!-- DataTables -->
+        <link rel="stylesheet" href="adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css" th:href="@{/adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css}" type="text/css" />
+        <!-- bootstrap datepicker -->
+        <link rel="stylesheet" href="adminlte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"  th:href="@{/adminlte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css}" type="text/css" />
+
+        <!-- Theme style -->
+        <link rel="stylesheet" href="adminlte/dist/css/AdminLTE.min.css" th:href="@{/adminlte/dist/css/AdminLTE.min.css}" type="text/css" />
+        <!-- AdminLTE Skins. Choose a skin from the css/skins
+             folder instead of downloading all of them to reduce the load. -->
+        <link rel="stylesheet" href="adminlte/dist/css/skins/_all-skins.min.css" th:href="@{/adminlte/dist/css/skins/_all-skins.min.css}" type="text/css" />
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <!-- Google Font -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+        <!-- Site wrapper -->
+        <div class="wrapper">
+
+            <!-- Include _header.html -->
+            <th:block th:include="/_header"></th:block>
+            <!-- =============================================== -->
+
+            <!-- Left side column. contains the sidebar -->
+            <aside class="main-sidebar"  th:include="/_aside">
+
+            </aside>
+
+            <!-- =============================================== -->
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+
+
+
+                <section class="content-header">
+                    <h1>
+                        Demande de Mission
+                        <small th:text="${title}"></small>
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="#"><i class="fa fa-dashboard"></i> Accueil</a></li>
+                        <li><a href="#">Demande de mission</a></li>
+                        <li class="active">Enregistrement</li>
+                    </ol>
+                </section>
+
+                <!-- Main content -->
+                <section class="content">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- general form elements -->
+                            <div class="box box-primary">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title"  th:text="${title}"></h3>
+                                    <div class="pull-right">
+                                        <a th:href="@{/demandeMission/listeDemandeMission}" class="btn btn-block btn-primary btn-flat"><i class="fa fa-users"></i> Liste des demandeMissions</a>
+                                    </div>
+                                </div>
+                                <div  th:if="${message=='enregistre'}" class="alert alert-success">
+                                    Enregistrement reussi!
+                                </div>
+                                
+                                <!-- /.box-header -->
+                                <!-- form start -->
+                                <form role="form" name="frmadd" th:object="${demandeMissionMdl}" >
+                                    <div class="box box-solid box-default">
+                                        <!-- /.box-header -->
+                                        <div class="box-header with-border">
+                                            <h3 class="box-title">Information relative de la mission</h3>
+                                        </div><!-- /.box-header -->
+                                        <div class="box-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                        <input type="hidden" th:field="${demandeMissionMdl.etat}" class="form-control" >
+                                                        <input type="hidden" th:field="${demandeMissionMdl.objet}" class="form-control" >
+                                                    <div class="form-group">
+                                                        <label>Description</label>
+                                                        <input type="hidden" th:field="${demandeMissionMdl.idDemandeMission}" class="form-control"  id="iddemandeMission">
+                                                        <textarea readonly="readonly" name="description"  th:field="${demandeMissionMdl.description}" class="form-control" rows="3">
+
+                                                        </textarea>
+                                                    </div>
+                                                </div>
+                                                 <!-- /.col -->
+                                                
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Date de Debut</label>
+                                                        <input readonly="readonly" type="date" th:field="${demandeMissionMdl.dateDebut}" class="form-control"  pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+                                                        
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Date de Fin</label>
+                                                        <div>
+                                                            <input readonly="readonly" type="date" th:field="${demandeMissionMdl.DateFin}" class="form-control"  pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+                                                           
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                                <!-- /.col -->
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Zone</label>
+                                                        <select readonly="readonly" th:field="${demandeMissionMdl.zone}" class="form-control">
+                                                            <option th:value="${demandeMissionMdl.getZone().getIdZone()}" th:text="${demandeMissionMdl.getZone().getNomZone()}" selected="selected"> </option>
+                                                            
+                                                        </select>
+                                                        
+                                                    </div>
+                                                   
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Entrepot</label>
+                                                        <select readonly="readonly" th:field="${demandeMissionMdl.entrepot}" class="form-control">
+                                                            <option th:value="${demandeMissionMdl.getEntrepot().getIdEntrepot()}" th:text="${demandeMissionMdl.getEntrepot().getNomEntrepot()}" selected="selected"> </option>
+                                                            
+                                                        </select>
+                                                        
+                                                    </div>
+                                                   
+                                                </div>
+                                                
+                                                <!-- /.col -->
+                                                <!-- /.col -->
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Agent</label>
+                                                          <select readonly="readonly" th:field="${demandeMissionMdl.agentM}" class="form-control">
+
+                                                            <option th:value="${demandeMissionMdl.getAgentM().getIdAgent()}" th:text="${demandeMissionMdl.getAgentM().getNom()}" selected="selected"> </option>
+
+                                                        </select>
+                                                    </div>
+                                                   
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Produit </label>
+                                                      
+                                                        <select readonly="readonly" th:field="${demandeMissionMdl.produit}" class="form-control">
+                                                           
+                                                            <option th:value="${demandeMissionMdl.getProduit().getIdProduit()}" th:text="${demandeMissionMdl.getProduit().getLibelle()}" selected="selected"> </option>
+
+                                                        </select>
+                                                       
+                                                    </div>
+                                                   
+                                                </div>
+                                                
+                                                <!-- /.col -->
+                                              
+                                                <!-- /.col -->
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Date de la demande</label>
+                                                        <input readonly="readonly" type="date" class="form-control" th:field="${demandeMissionMdl.datedemande}" >
+                                                    </div>
+                                                </div>
+                                                <!-- /.col -->
+                                                <!-- /.col -->
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>La Quantité</label>
+                                                        <input readonly="readonly" type="text" class="form-control" th:field="${demandeMissionMdl.quantite}"  placeholder="date de retraite">
+                                                    </div>
+                                                    <!-- /.col -->
+                                                </div>
+                                            <!-- /.row -->
+                                            </div>
+                                            <div class="row">
+                                            </div>
+                                        <!-- /.box-body -->
+                                        
+                                        </div>
+                                    <!-- /.box -->
+                                
+                                    </div>
+                                    
+                                 </form>
+                                <form role="form" name="frmadd" th:object="${affectationMdl}" th:action="@{/demandeMission/saveTraiterDemandeMission}" method='POST'>
+                                    <!-- /.box -->
+                                    <div class="box  box-solid box-info">
+                                        <div class="box-header with-border">
+                                            <h3 class="box-title">Affectation de la mission</h3>
+                                        </div><!-- /.box-header -->
+                                        <div class="box-body">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Date de Affectation</label>
+                                                        <input type="date" th:field="${affectationMdl.dateAffectation}" class="form-control"  pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Date de debut</label>
+                                                        <div>
+                                                            <input readonly="readonly" type="date" th:field="${affectationMdl.DateDebut}" class="form-control"  pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Date de Fin</label>
+                                                        <div>
+                                                            <input readonly="readonly" type="date" th:field="${demandeMissionMdl.DateFin}" class="form-control"  pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Vehicule</label>
+                                                        <select th:field="${affectationMdl.vehicule}" class="form-control">
+                                                            <option th:each="vehicule : ${vehiculelist}" th:value="${vehicule.getIdVehicule()}" th:text="${vehicule.getImmatriculation()}">
+                                                            </option>
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Chauffeur</label>
+                                                        <select th:field="${affectationMdl.chauffeur}" class="form-control">
+                                                            <option th:each="agentM : ${chauffeurlist}" th:value="${agentM.getIdAgent()}" th:text="${agentM.getNom()}">
+                                                            </option>
+                                                        </select>
+                                                        <input type="hidden" th:field="${affectationMdl.etat}" class="form-control" >
+                                                        <select hidden="hidden" th:field="${affectationMdl.demandeMission}" class="form-control">
+                                                            <option  th:value="${demandeMissionMdl.getIdDemandeMission()}" th:text="${demandeMissionMdl.getIdDemandeMission()}">
+                                                            </option>
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+                                                
+                                            </div>
+                                                
+                                        </div><!-- /.box-body -->
+                                        <div class="box-footer">
+                                            <button type="submit" class="btn btn-primary btn-flat btn-lg col-md-3">Affecter</button>
+                                        </div>
+                                    </div><!-- /.box -->
+                                </form>
+                            </div>
+                        <!--/.col (left) -->
+                        </div>                 
+                    </div>                 
+                </section>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
+
+            <footer class="main-footer">
+                <div class="pull-right hidden-xs">
+                    <b>Version</b> 1.0
+                </div>
+                <strong>Copyright &copy; 2018-2019 <a href="#">ESSO & PIERRE FROM IFI</a>.</strong> All rights
+                reserved.
+            </footer>
+
+
+        </div>
+        <!-- ./wrapper -->
+
+        <!-- jQuery 3 -->
+        <script type="text/javascript" href="adminlte/bower_components/jquery/dist/jquery.min.js"  th:src="@{/adminlte/bower_components/jquery/dist/jquery.min.js}"></script>
+        <!-- Bootstrap 3.3.7 -->
+        <script type="text/javascript" href="adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js"  th:src="@{/adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+        <!-- iCheck -->
+        <script type="text/javascript" href="adminlte/plugins/iCheck/icheck.min.js"  th:src="@{/adminlte/plugins/iCheck/icheck.min.js}"></script>
+        <!-- bootstrap datepicker -->
+        <script src="adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js" th:src="@{/adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js}"></script>
+
+        <!-- SlimScroll -->
+        <script type="text/javascript" href="adminlte/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"  th:src="@{/adminlte/bower_components/jquery-slimscroll/jquery.slimscroll.min.js}"></script>
+        <!-- FastClick -->
+        <script type="text/javascript" href="adminlte/bower_components/fastclick/lib/fastclick.js"  th:src="@{/adminlte/bower_components/fastclick/lib/fastclick.js}"></script>
+        <!-- AdminLTE App -->
+        <script type="text/javascript" href="adminlte/dist/js/adminlte.min.js"  th:src="@{/adminlte/dist/js/adminlte.min.js}"></script>
+        <!-- AdminLTE for demo purposes -->
+        <script type="text/javascript" href="adminlte/dist/js/demo.js"  th:src="@{/adminlte/dist/js/demo.js}"></script>
+        <script>
+            $(document).ready(function () {
+            $('.sidebar-menu').tree()
+            
+            })
+        </script>
+        <script type="text/javascript">
+            $('.datepicker').datepicker({
+            autoclose: true,
+            format: "dd-mm-yyyy"
+            
+            })
+            $('.datepicker1').datepicker({
+            autoclose: true
+            })
+            $('.datepicker2').datepicker({
+            autoclose: true
+            })
+        </script>
+
+    </body>
+
+</html>
